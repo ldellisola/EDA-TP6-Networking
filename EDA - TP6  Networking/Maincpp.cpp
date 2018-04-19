@@ -41,7 +41,7 @@ int main(int ardc, char * argv[])
 		}
 			Server s(PORT);
 
-			s.conect();
+			s.connect();
 			packet.setRecievedPacket(s.getInfo());
 
 		
@@ -53,4 +53,4 @@ int main(int ardc, char * argv[])
 
 // IMPORTANTE
 
-//El Server es el que escucha, mientras que el cliente es el que manda.
+//El Server es el que escucha, mientras que el cliente es el que manda. 

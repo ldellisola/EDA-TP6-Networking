@@ -11,7 +11,7 @@ typedef struct UserData
 
 	void init(const char * ipFile)
 	{
-		char buff[100];
+		char buff[200];
 		bool matchNotFound = true;
 		ifstream source;
 		source.open(ipFile, ifstream::in);

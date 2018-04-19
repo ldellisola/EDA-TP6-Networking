@@ -1,7 +1,7 @@
 #include "Client.h"
 
 
-//using namespace boost::asio;
+using namespace boost::asio;
 Client::Client()
 {
 	this->IOHandler = new io_service();
