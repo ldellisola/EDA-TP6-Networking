@@ -22,8 +22,10 @@ int main(int ardc, char * argv[])
 	do {
 		if (data.imServer && packet.mustAskUser())
 		{
-			packet.setSequence(user.getSequence());		
+			user.initGetter();
 			packet.setAnimation(user.getAnimation());
+			packet.setSequence(user.getSequence(/* Hay que pasarle la cantidad de computadoras conectadas*/));		
+			user.killGetter();
 		}
 		if (packet.myTurn(data.ipPosition))
 		{

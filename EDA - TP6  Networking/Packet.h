@@ -14,7 +14,7 @@ public:
 	~Packet();
 	bool myTurn(int myComputer);
 	bool mustAskUser();
-	void setSequence(int * arr);
+	void setSequence(vector<int> vect);
 	void setAnimation(char a);
 	int nextComputer();
 	bool runNextComputer();				
