@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AllegroClass.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Maincpp.cpp" />
     <ClCompile Include="Packet.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="UserHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AllegroClass.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Server.h" />

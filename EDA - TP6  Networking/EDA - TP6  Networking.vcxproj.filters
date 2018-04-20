@@ -30,6 +30,9 @@
     <ClCompile Include="Sever.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AllegroClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AllegroClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
