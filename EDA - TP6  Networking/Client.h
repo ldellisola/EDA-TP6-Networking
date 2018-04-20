@@ -6,6 +6,7 @@
 #include <boost/chrono.hpp>
 #include <boost/timer/timer.hpp>
 #include <string>
+#include "Timer.h"
 using namespace std;
 using namespace boost::asio;
 
@@ -16,6 +17,7 @@ public:
 	void link(const char * host, const char * port);
 	//string recieveMessage();
 	void sendMessage(string msg);
+	bool sendMessageTimed(string msg, int ms);
 	~Client();
 private:
 	

@@ -110,9 +110,9 @@ bool checkAllConnections(const char * file, const char * ip) {
 
 			Server server(PORT);
 			server.connect();
-			string response = server.getInfo();
+			string response = server.getInfoTimed(10);
 
-			if (response.compare(IMSERVER))
+			if (response.compare(NOTSERVER) || !response.compare(SERVER_TIMEOUT))
 				retValue = false;
 		}
 	}

@@ -3,6 +3,9 @@
 #include <boost/asio.hpp>
 #include <string>
 #include <cstdio>
+#include "Timer.h"
+
+#define SERVER_TIMEOUT "timeout"
 
 class Server {
 public:
@@ -10,6 +13,7 @@ public:
 	~Server();
 	void connect();
 	std::string getInfo();
+	std::string getInfoTimed(int ms);
 
 private:
 	boost::asio::io_service* IO_handler;

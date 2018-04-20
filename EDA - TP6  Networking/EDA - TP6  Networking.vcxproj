@@ -120,6 +120,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="Sever.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UserHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UserData.h" />
     <ClInclude Include="UserHandler.h" />
   </ItemGroup>

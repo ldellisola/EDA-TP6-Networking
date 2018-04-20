@@ -40,3 +40,37 @@ std::string Server::getInfo() {
 
 	return retValue;
 }
+
+std::string Server::getInfoTimed(int ms)
+{
+	Timer timer;
+
+	
+
+	char buffer[1 + 255 + 1];
+	size_t lenght = 0;
+	boost::system::error_code error;
+
+	timer.start();
+
+	bool timeout = false;
+
+	do {
+		lenght = this->serverSocket->read_some(boost::asio::buffer(buffer), error);
+		timer.stop();
+		if (timer.getTime() > ms && lenght == 0) { // Pido que lenght == 0 asi no lo paro mientras esta mandando
+			timeout = true;
+		}
+
+	} while (error && !timeout);
+	std::string retValue;
+
+	if (!timeout) {
+		buffer[lenght] = 0;
+		retValue = buffer;
+	}
+	else
+		retValue = SERVER_TIMEOUT;
+
+	return retValue;
+}
