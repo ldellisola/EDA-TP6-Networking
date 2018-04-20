@@ -14,7 +14,7 @@ class Client
 public:
 	Client();
 	void link(const char * host, const char * port);
-	string recieveMessage();
+	//string recieveMessage();
 	void sendMessage(string msg);
 	~Client();
 private:
