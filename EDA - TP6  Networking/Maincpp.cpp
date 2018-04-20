@@ -1,4 +1,4 @@
-
+#include "Server.h"
 #include "Packet.h"
 #include "UserData.h"
 #include "Client.h"
@@ -7,9 +7,6 @@
 
 #define IPFILE "hola"
 #define PORT ("12345")
-
-
-class Server{};
 
 int main(int ardc, char * argv[])
 {
@@ -39,11 +36,10 @@ int main(int ardc, char * argv[])
 			client->link(user.getNextIP(packet.nextComputer(), IPFILE), PORT);
 			client->sendMessage(packet.getPacketToTransfer());
 		}
-			Server s(PORT);
 
+			Server s(PORT);
 			s.connect();
 			packet.setRecievedPacket(s.getInfo());
-
 		
 	} while (getch() != QUIT);
 

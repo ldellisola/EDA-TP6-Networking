@@ -118,11 +118,13 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Maincpp.cpp" />
     <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="Sever.cpp" />
     <ClCompile Include="UserHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="Packet.h" />
+    <ClInclude Include="Server.h" />
     <ClInclude Include="UserData.h" />
     <ClInclude Include="UserHandler.h" />
   </ItemGroup>

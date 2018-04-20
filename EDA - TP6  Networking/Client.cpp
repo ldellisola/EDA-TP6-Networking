@@ -20,6 +20,7 @@ void Client::link(const char * host, const char * port)
 	cout << "Client trying to conecct " << host << endl;
 }
 
+/*
 using namespace boost;
 string Client::recieveMessage()
 {
@@ -53,9 +54,17 @@ string Client::recieveMessage()
 
 	return retValue;
 }
+*/
 
 void Client::sendMessage(string msg)
 {
+	size_t lenght = 0;
+	boost::system::error_code error;
+
+	do {
+		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.length), error);
+	} while (error);
+
 }
 
 Client::~Client()
