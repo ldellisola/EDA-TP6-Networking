@@ -24,11 +24,10 @@ bool Packet::mustAskUser()
 	return (animation == NOTLOADED || count == NOTLOADED || sequence.size() == 0);
 }
 
-void Packet::setSequence(int * arr)		// No me gusta, hay que rehacerlo
+void Packet::setSequence(vector<int> vect)		
 {
-	for (int i = 0; i < 255 && arr[i] != 0 ; ++i)
-		sequence.push_back(arr[i]);	// Seguro hayb una funcion que ahce esto
-
+	sequence = vect;
+	
 	count = 1;
 
 	countIncremented = false;

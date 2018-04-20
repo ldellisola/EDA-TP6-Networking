@@ -3,6 +3,7 @@
 #include "UserData.h"
 #include "Client.h"
 #include "UserHandler.h"
+#include "AllegroClass.h"
 #include <memory>
 
 #define IPFILE "hola"
@@ -13,6 +14,7 @@ int main(int ardc, char * argv[])
 	UserData data;		// Tiene que devolver la posicion de la ip.
 	Packet packet;
 	UserHandler user;
+	AllegroClass allegro();
 
 	parseCmdLine(argc, argv, &callback, &data);
 
@@ -22,8 +24,10 @@ int main(int ardc, char * argv[])
 	do {
 		if (data.imServer && packet.mustAskUser())
 		{
-			packet.setSequence(user.getSequence());		
+			user.initGetter();
 			packet.setAnimation(user.getAnimation());
+			packet.setSequence(user.getSequence(/* Hay que pasarle la cantidad de computadoras conectadas*/));		
+			user.killGetter();
 		}
 		if (packet.myTurn(data.ipPosition))
 		{
