@@ -8,6 +8,8 @@ typedef struct UserData
 	string ip;
 	bool imServer;
 	int ipPosition;
+	vector<string> ipList;
+	int ammountOfIPs;
 
 	void init(const char * ipFile)
 	{
@@ -16,16 +18,21 @@ typedef struct UserData
 		ifstream source;
 		source.open(ipFile, ifstream::in);
 
-		for (int i = 0; source.good() && matchNotFound; i++)
-		{
+		for (int i = 0; source.good(); i++) {
 			source.getline(buff, 200, '\n');
-			if (!ip.compare(buff))
-			{
-				ipPosition = i;
-				matchNotFound = false;
-			}
+			ipList.push_back(buff);
 		}
 		source.close();
+
+
+		ammountOfIPs = ipList.size();
+
+		for (string ip_ : ipList) {
+			int i = 1;
+			if (!ip.compare(ip_.c_str()))
+				ipPosition = i;
+		}
 	}
+
 
 };

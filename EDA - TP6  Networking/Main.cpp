@@ -12,13 +12,13 @@
 #define IMSERVER "yes"
 #define NOTSERVER "not"
 
-bool checkAllConnections(const char * file, const char * ip);
-void tellAllComputersToStop(const char * file, const char * ip);
-bool isIPinList(const char * file, const char * ip);
-bool verifyConnection(const char * file, bool isServer);
+bool checkAllConnections(vector<string>& ips, const char * ip);
+void tellAllComputersToStop(vector<string>& ips, const char * ip);
+bool isIPinList(vector<string>& ips, const char * ip);
+bool verifyConnection(vector<string>& ips, bool isServer);
 
 
-int main(int ardc, char * argv[])
+int main()
 {
 	UserData data;		// Tiene que devolver la posicion de la ip.
 	Packet packet;
@@ -35,10 +35,10 @@ int main(int ardc, char * argv[])
 	bool start = false;
 
 	if (data.imServer) {
-		start = checkAllConnections(IPFILE, data.ip.c_str());
+		start = checkAllConnections(data.ipList, data.ip.c_str());
 	}
 	else{
-		start = verifyConnection(IPFILE, data.imServer);
+		start = verifyConnection(data.ipList, data.imServer);
 	}
 	if (start) {
 		do {
@@ -57,7 +57,7 @@ int main(int ardc, char * argv[])
 			if (packet.runNextComputer())		// No se si deberia ser de Packet
 			{
 				unique_ptr<Client> client(new Client());
-				client->link(user.getNextIP(packet.nextComputer(), IPFILE), PORT);
+				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
 				client->sendMessage(packet.getPacketToTransfer());
 			}
 
@@ -73,7 +73,7 @@ int main(int ardc, char * argv[])
 	}
 
 	if (data.imServer)
-		tellAllComputersToStop(IPFILE, data.ip.c_str());
+		tellAllComputersToStop(data.ipList, data.ip.c_str());
 
 	
 
@@ -94,17 +94,13 @@ int main(int ardc, char * argv[])
 
 
 
-bool checkAllConnections(const char * file, const char * ip) {
+bool checkAllConnections(vector<string>& ips, const char * ip) {
 	bool retValue = true;
-	ifstream source;
-	source.open(file);
-	string a;
 
-	while (source.good() && retValue) {
-		source >> a;
-		if (a.compare(ip)) {
+	for (string ip_ : ips) {
+		if (ip_.compare(ip)) {
 			Client * client = new Client();
-			client->link(a.c_str(), PORT);
+			client->link(ip_.c_str(), PORT);
 			client->sendMessage(ip);
 			delete client;
 
@@ -121,37 +117,30 @@ bool checkAllConnections(const char * file, const char * ip) {
 }
 
 
-void tellAllComputersToStop(const char * file, const char * ip) {
+void tellAllComputersToStop(vector<string>& ips, const char * ip) {
 	bool retValue = true;
-	ifstream source;
-	source.open(file);
-	string a;
-
-	while (source.good()) {
-		source >> a;
-		if (a.compare(ip)) {
+	
+	for (string ip_ : ips) {
+		if (ip_.compare(ip)) {
 			unique_ptr<Client>client(new Client());
-			client->link(a.c_str(), PORT);
+			client->link(ip_.c_str(), PORT);
 			client->sendMessage(STOP);
 		}
 	}
+
 }
 
 
 
 
-bool isIPinList(const char * file, const char * ip) {
-	ifstream source;
-	source.open(file);
-	string a;
+bool isIPinList(vector<string>& ips, const char * ip) {
 	bool match = false;
 
-	while (source.good() && !match) {
-		source >> a;
-		if (!a.compare(ip)) {
+	for (int i = 0; i < ips.size() && !match; ++i) {
+		if (!ips[i].compare(ip))
 			match = true;
-		}
 	}
+
 
 	return match;
 }
@@ -165,7 +154,7 @@ bool isIPinList(const char * file, const char * ip) {
 
 
 
-bool verifyConnection(const char * file, bool isServer) {
+bool verifyConnection(vector<string>& ips, bool isServer) {
 
 	bool retValue = false;
 	Server server(PORT);
@@ -174,7 +163,7 @@ bool verifyConnection(const char * file, bool isServer) {
 
 	string verification = server.getInfo(); // la computadora principal manda su IP
 
-	if (isIPinList(file, verification.c_str())) {
+	if (isIPinList(ips, verification.c_str())) {
 		retValue = true;
 		unique_ptr<Client> client(new Client());
 		client->link(verification.c_str(), PORT);
