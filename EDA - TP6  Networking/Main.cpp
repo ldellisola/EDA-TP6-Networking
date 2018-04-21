@@ -29,8 +29,13 @@ int main(int argc, char * argv[])
 
 	parser.Read(argc, argv);
 
-	data.init(IPFILE);
+	
 	// Hay que verificar que hay mas de 2 maquinas y menos de 255.
+
+	data.ip = parser.myIP;
+	data.imServer = parser.initialMachine;
+
+	data.init(IPFILE);
 
 	bool stop = false;
 	bool start = true;
