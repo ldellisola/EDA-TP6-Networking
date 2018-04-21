@@ -33,6 +33,7 @@ int main(int argc, char * argv[])
 	data.ip = parser.myIP;
 
 	data.init(IPFILE);
+
 	// Hay que verificar que hay mas de 2 maquinas y menos de 255.
 
 	bool stop = false;

@@ -16,7 +16,10 @@ Packet::~Packet()
 
 bool Packet::myTurn(int myComputer)
 {
-	return (sequence[count - 1] == myComputer);
+	if (count != NOTLOADED)
+		return (sequence[count-1] == myComputer);
+	else return false;
+
 }
 
 bool Packet::mustAskUser()
@@ -59,6 +62,7 @@ string Packet::getPacketToTransfer()
 	arr[1] = 0;
 	string retValue = arr;
 	retValue+= count;
+
 
 	for (int num : sequence)
 	{
