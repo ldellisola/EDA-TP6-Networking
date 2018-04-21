@@ -62,7 +62,7 @@ void Client::sendMessage(string msg)
 	boost::system::error_code error;
 
 	do {
-		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.length), error);
+		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.size()), error);
 	} while (error);
 
 
@@ -78,7 +78,7 @@ bool Client::sendMessageTimed(string msg, int ms)
 	boost::system::error_code error;
 
 	do {
-		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.length), error);
+		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.size()), error);
 		timer.stop();
 		if (timer.getTime() > ms && lenght == 0)
 			timeout = true;

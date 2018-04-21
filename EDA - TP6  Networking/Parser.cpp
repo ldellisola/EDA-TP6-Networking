@@ -19,7 +19,7 @@ int Parser::Read(int argc, char * argv[])
 
 			else
 			{
-				posible = Do(&(argv[i][1]), argv[i + 1]);
+				Do(&(argv[i][1]), argv[i + 1]);
 				if (posible >= 0) {
 					i += 2; //avanzo 2 parametros
 				}
@@ -30,7 +30,7 @@ int Parser::Read(int argc, char * argv[])
 			}
 		}
 		else {
-			posible = Do(nullptr, argv[i]); //si no es opcion es parametro
+			Do(nullptr, argv[i]); //si no es opcion es parametro
 			if (posible >= 0) {
 				i++;
 			}
@@ -57,7 +57,7 @@ Parser::~Parser()
 {
 }
 
-int Parser::Do(char * key, char * value)
+void Parser::Do(char * key, char * value)
 {
 	int i = 0, equal;
 

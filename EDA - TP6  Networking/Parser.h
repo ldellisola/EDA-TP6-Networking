@@ -26,7 +26,7 @@ public:
 	bool initialMachine;
 
 private:
-	int Do(char *key, char *value);
+	void Do(char *key, char *value);
 	parseData parseData;
 };
 

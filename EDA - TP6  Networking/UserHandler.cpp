@@ -92,6 +92,7 @@ vector<int> UserHandler::getSequence(int sequenceLenght)
 	do {
 		echo();
 		do {
+
 
 			drawSequenceInterface(sequence);
 			sequence.emplace_back(getNumberString(4, 0, ERROR_SEQUENCE));
@@ -128,7 +129,9 @@ vector<int> UserHandler::getSequence(int sequenceLenght)
 	return sequence;
 }
 
-
+void UserHandler::draw()
+{
+}
 
 
 
