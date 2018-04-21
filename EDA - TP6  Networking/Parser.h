@@ -22,7 +22,7 @@ public:
 	~Parser();
 	int Read(int argc, char *argv[]);
 
-	std::string myIP = nullptr;
+	std::string myIP;
 	bool initialMachine;
 
 private:
