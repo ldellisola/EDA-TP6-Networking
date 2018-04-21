@@ -23,7 +23,7 @@ public:
 	int Read(int argc, char *argv[]);
 
 	std::string myIP;
-	bool initialMachine;
+	bool initialMachine = false;
 
 private:
 	void Do(char *key, char *value);

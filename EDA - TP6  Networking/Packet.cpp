@@ -16,7 +16,7 @@ Packet::~Packet()
 
 bool Packet::myTurn(int myComputer)
 {
-	return (sequence[count] == myComputer);
+	return (sequence[count - 1] == myComputer);
 }
 
 bool Packet::mustAskUser()
@@ -54,7 +54,11 @@ bool Packet::runNextComputer()
 
 string Packet::getPacketToTransfer()
 {
-	string retValue = &animation + count;
+	char arr[2];
+	arr[0] = animation;
+	arr[1] = 0;
+	string retValue = arr;
+	retValue+= count;
 
 	for (int num : sequence)
 	{

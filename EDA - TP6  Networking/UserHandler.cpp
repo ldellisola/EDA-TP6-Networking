@@ -17,7 +17,7 @@ UserHandler::~UserHandler()
 
 const char * UserHandler::getNextIP(int pos, vector<string>& ips)
 {
-	return ips[pos].c_str();
+	return ips[pos-1].c_str();
 }
 
 void UserHandler::initGetter()

@@ -91,7 +91,7 @@ void Parser::Do(char * key, char * value)
 			equal = strcmp(key, parseData.key[i]);
 			if (equal == 0)
 			{
-				this->myIP = value[0];
+				this->myIP = value;
 			}
 		}
 	}
