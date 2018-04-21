@@ -19,7 +19,7 @@ bool isIPinList(vector<string>& ips, const char * ip);
 bool verifyConnection(vector<string>& ips, bool isServer);
 
 
-int main()
+int main(int argc, char * argv[])
 {
 	UserData data;		// Tiene que devolver la posicion de la ip.
 	Packet packet;
@@ -31,29 +31,28 @@ int main()
 
 	data.init(IPFILE);
 	// Hay que verificar que hay mas de 2 maquinas y menos de 255.
-	// Tengo que cambiar la numeracion de las ip ya que deben empezar con 1
 
 	bool stop = false;
-	bool start = false;
-
-	if (data.imServer) {
+	bool start = true;
+	// Esta parte es para verificar que solo hay un server
+	/*if (data.imServer) {
 		start = checkAllConnections(data.ipList, data.ip.c_str());
 	}
 	else{
 		start = verifyConnection(data.ipList, data.imServer);
-	}
+	}*/
 	if (start) {
 		do {
 			if (data.imServer && packet.mustAskUser())
 			{
 				user.initGetter();
 				packet.setAnimation(user.getAnimation());
-				packet.setSequence(user.getSequence(/* Hay que pasarle la cantidad de computadoras conectadas*/));
+				packet.setSequence(user.getSequence(data.ammountOfIPs));
 				user.killGetter();
 			}
 			if (packet.myTurn(data.ipPosition))
 			{
-				user.draw();					// No se si deberia ser de Packet
+				user.draw();					
 				packet.updateCount();
 			}
 			if (packet.runNextComputer())		// No se si deberia ser de Packet
@@ -73,6 +72,8 @@ int main()
 
 		} while (!stop);
 	}
+
+	// Esta parte hace que se apaguen las demas computadoras
 
 	if (data.imServer)
 		tellAllComputersToStop(data.ipList, data.ip.c_str());

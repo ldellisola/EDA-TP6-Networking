@@ -24,7 +24,7 @@ class UserHandler
 public:
 	UserHandler();
 	~UserHandler();
-	const char * getNextIP(int pos, const char * file);
+	const char * getNextIP(int pos, vector<string>& ips);
 
 	// PDCurses functions that return information from the user
 	void initGetter();

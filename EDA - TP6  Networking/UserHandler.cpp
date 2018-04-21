@@ -15,22 +15,9 @@ UserHandler::~UserHandler()
 {
 }
 
-const char * UserHandler::getNextIP(int pos, const char * file)
+const char * UserHandler::getNextIP(int pos, vector<string>& ips)
 {
-	char arr[200];
-	int i = 1;
-
-	ifstream source;
-
-	source.open(file, ifstream::in);
-
-	while (i != pos && source.good())
-	{
-		source.getline(arr, 200, '\n');
-		i++;
-	}
-	return arr;		// Hay que chequear aca. No se si se va a destriur el arreglo o, como 
-					//devuelvo un puntero constante, se mantiene lindo
+	return ips[pos].c_str();
 }
 
 void UserHandler::initGetter()
