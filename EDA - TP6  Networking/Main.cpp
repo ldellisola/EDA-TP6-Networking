@@ -4,6 +4,7 @@
 #include "Client.h"
 #include "UserHandler.h"
 #include "AllegroClass.h"
+#include "Parser.h"
 #include <memory>
 
 #define IPFILE "direcciones.txt"
@@ -24,8 +25,9 @@ int main()
 	Packet packet;
 	UserHandler user;
 	AllegroClass allegro();
+	Parser parser;
 
-	parseCmdLine(argc, argv, &callback, &data);
+	parser.Read(argc, argv);
 
 	data.init(IPFILE);
 	// Hay que verificar que hay mas de 2 maquinas y menos de 255.
