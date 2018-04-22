@@ -36,9 +36,11 @@ int main(int argc, char * argv[])
 
 
 	bool stop = false;
-	
+	bool amILast = false;
 	if (data.ammountOfIPs >=2  && data.ammountOfIPs <= 255) {
 		do {
+			amILast = packet.amILast(data.ipPosition);
+
 			if (data.imServer && packet.mustAskUser())
 			{
 				user.initGetter();
@@ -59,7 +61,7 @@ int main(int argc, char * argv[])
 				allegro.destroyDisplay(disp);
 				delete an;
 			}
-			if (!stop && packet.runNextComputer())		// No se si deberia ser de Packet
+			if (!stop && packet.runNextComputer() && !amILast)		// No se si deberia ser de Packet
  {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
@@ -67,7 +69,7 @@ int main(int argc, char * argv[])
 			}
 
 			if (!stop ) {
-				if (!packet.amILast(data.ipPosition)) {
+				if (!amILast) {
 					Server s(PORT);
 					s.connect();
 					string a = s.getInfo();

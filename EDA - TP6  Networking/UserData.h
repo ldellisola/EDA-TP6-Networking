@@ -26,11 +26,12 @@ typedef struct UserData
 
 
 		ammountOfIPs = ipList.size();
-
+		int i = 1;
 		for (string ip_ : ipList) {
-			int i = 1;
+			
 			if (!ip.compare(ip_.c_str()))
 				ipPosition = i;
+			i++;
 		}
 	}
 
