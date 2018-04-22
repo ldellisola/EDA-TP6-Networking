@@ -22,6 +22,8 @@ public:
 	void setRecievedPacket(string a);
 	void updateCount();
 	char getAnimation();
+	bool amILast(int pos);
+	void clear();
 private:
 	bool countIncremented;
 	char animation;

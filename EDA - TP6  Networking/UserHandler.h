@@ -135,6 +135,7 @@ public:
 	void killGetter();
 	vector<int> getSequence(int sequenceLenght);
 	char getAnimation();
+	bool askToStart();
 
 	// Allegro Function that draws the animation
 	void draw(Animation * an, ALLEGRO_BITMAP * background);

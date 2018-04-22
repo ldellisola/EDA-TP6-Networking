@@ -13,10 +13,10 @@
 #define IMSERVER "yes"
 #define NOTSERVER "not"
 
-bool checkAllConnections(vector<string>& ips, const char * ip);
+//bool checkAllConnections(vector<string>& ips, const char * ip);
 void tellAllComputersToStop(vector<string>& ips, const char * ip);
-bool isIPinList(vector<string>& ips, const char * ip);
-bool verifyConnection(vector<string>& ips, bool isServer);
+//bool isIPinList(vector<string>& ips, const char * ip);
+//bool verifyConnection(vector<string>& ips, bool isServer);
 
 
 int main(int argc, char * argv[])
@@ -34,27 +34,23 @@ int main(int argc, char * argv[])
 
 	data.init(IPFILE);
 
-	// Hay que verificar que hay mas de 2 maquinas y menos de 255.
 
 	bool stop = false;
-	bool start = true;
-	// Esta parte es para verificar que solo hay un server
-	/*if (data.imServer) {
-		start = checkAllConnections(data.ipList, data.ip.c_str());
-	}
-	else{
-		start = verifyConnection(data.ipList, data.imServer);
-	}*/
-	if (start) {
+	
+	if (data.ammountOfIPs >=2  && data.ammountOfIPs <= 255) {
 		do {
 			if (data.imServer && packet.mustAskUser())
 			{
 				user.initGetter();
-				packet.setAnimation(user.getAnimation());
-				packet.setSequence(user.getSequence(data.ammountOfIPs));
+				stop = !user.askToStart();
+				if (!stop) {
+					packet.setAnimation(user.getAnimation());
+					packet.setSequence(user.getSequence(data.ammountOfIPs));
+					data.imServer = false;
+				}
 				user.killGetter();
 			}
-			if (packet.myTurn(data.ipPosition))
+			if (!stop && packet.myTurn(data.ipPosition))
 			{
 				ALLEGRO_DISPLAY * disp = allegro.createDisplay(2000, 1000);
 				Animation * an =new Animation(packet.getAnimation());
@@ -63,20 +59,29 @@ int main(int argc, char * argv[])
 				allegro.destroyDisplay(disp);
 				delete an;
 			}
-			if (packet.runNextComputer())		// No se si deberia ser de Packet
+			if (!stop && packet.runNextComputer())		// No se si deberia ser de Packet
  {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
 				client->sendMessage(packet.getPacketToTransfer());
 			}
 
-			Server s(PORT);
-			s.connect();
-			string a = s.getInfo();
-			if (a.compare(STOP))
-				packet.setRecievedPacket(a);
-			else
-				stop = true;
+			if (!stop ) {
+				if (!packet.amILast(data.ipPosition)) {
+					Server s(PORT);
+					s.connect();
+					string a = s.getInfo();
+					if (a.compare(STOP))
+						packet.setRecievedPacket(a);
+					else
+						stop = true;
+				}
+				else {
+					data.imServer = true;
+					packet.clear();
+				}
+			}
+
 
 		} while (!stop);
 	}
@@ -92,6 +97,22 @@ int main(int argc, char * argv[])
 		
 }
 
+void tellAllComputersToStop(vector<string>& ips, const char * ip) {
+	bool retValue = true;
+
+	for (string ip_ : ips) {
+		if (ip_.compare(ip)) {
+			unique_ptr<Client>client(new Client());
+			client->link(ip_.c_str(), PORT);
+			client->sendMessage(STOP);
+		}
+	}
+
+}
+
+// Aca hay una serie de funciones que creamos cuando pensabamos que nos teniamos que fijar si solo habia un server. Al final entendimos que el usuario
+// Es quien debe cuidar de que esto no pase. Estamos en duda con respecto a si cuando el server se apaga, las demas compus se tiene que apagar.
+
 // IMPORTANTE
 
 //El Server es el que escucha, mientras que el cliente es el que manda. 
@@ -104,7 +125,7 @@ int main(int argc, char * argv[])
 // De no responder, o responder que son servidores, se debe cerrar el programa en todas las computadoras.
 
 
-
+/*
 bool checkAllConnections(vector<string>& ips, const char * ip) {
 	bool retValue = true;
 
@@ -126,24 +147,11 @@ bool checkAllConnections(vector<string>& ips, const char * ip) {
 
 	return retValue;
 }
-
-
-void tellAllComputersToStop(vector<string>& ips, const char * ip) {
-	bool retValue = true;
-	
-	for (string ip_ : ips) {
-		if (ip_.compare(ip)) {
-			unique_ptr<Client>client(new Client());
-			client->link(ip_.c_str(), PORT);
-			client->sendMessage(STOP);
-		}
-	}
-
-}
+*/
 
 
 
-
+/*
 bool isIPinList(vector<string>& ips, const char * ip) {
 	bool match = false;
 
@@ -155,7 +163,7 @@ bool isIPinList(vector<string>& ips, const char * ip) {
 
 	return match;
 }
-
+*/
 // Esta funcion toma como argumentos al archivo que contiene a las ip y tambien a un bool que le dice si es servidor o no
 // (computadora principal). La computadora trata de conectarse al servidor por su puerto y espera a que este le mande un 
 // mensaje. Cuando le llega este mensaje, va a contener a la IP de la computadora que lo envio, y verifico si esa IP esta
@@ -164,7 +172,7 @@ bool isIPinList(vector<string>& ips, const char * ip) {
 // que si soy server es imposible que entre a esta funcion, asi que la otra computadora va a hacer timeout.
 
 
-
+/*
 bool verifyConnection(vector<string>& ips, bool isServer) {
 
 	bool retValue = false;
@@ -188,7 +196,7 @@ bool verifyConnection(vector<string>& ips, bool isServer) {
 }
 
 
-
+*/
 
 
 

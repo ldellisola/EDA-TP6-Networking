@@ -81,6 +81,34 @@ char UserHandler::getAnimation()
 	return retValue;
 }
 
+bool UserHandler::askToStart()
+{
+	color_set(1, NULL);
+	mvprintw(0, 0, "Would you like to start the program?");
+	mvprintw(1, 0, "Press 'Y' to continue or 'N' to stop");
+	int a;
+	bool keep = true;
+	bool retValue = true;
+
+	while ((a = getch()) !=ERR && keep) {
+		move(3, 0);
+		color_set(1, NULL);
+		if (a == 'y') {
+			keep = false;
+			retValue = true;
+		}
+		else if (a == 'n') {
+			keep = false;
+			retValue = false;
+		}
+		else {
+			color_set(2, 0);
+			mvprintw(2, 0, "ERROR: Pleas try again");
+		}
+	}
+	return retValue;
+}
+
 void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 {
 

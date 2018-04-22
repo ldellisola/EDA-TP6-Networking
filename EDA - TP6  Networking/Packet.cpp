@@ -95,3 +95,17 @@ char Packet::getAnimation()
 {
 	return this->animation;
 }
+
+bool Packet::amILast(int pos)
+{
+	int last = sequence.size() - 1;
+	return (sequence[last] == pos);
+}
+
+void Packet::clear()
+{
+	this->animation = NOTLOADED;
+	this->count = NOTLOADED;
+	this->countIncremented = false;
+	this->sequence.clear();
+}
