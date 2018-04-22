@@ -98,8 +98,12 @@ char Packet::getAnimation()
 
 bool Packet::amILast(int pos)
 {
-	int last = sequence.size() - 1;
-	return (sequence[last] == pos);
+	if (sequence.size()) {
+		int last = sequence.size() - 1;
+		return (sequence[last] == pos);
+	}
+	else
+		return false;
 }
 
 void Packet::clear()
