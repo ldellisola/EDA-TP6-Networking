@@ -81,6 +81,63 @@ char UserHandler::getAnimation()
 	return retValue;
 }
 
+void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
+{
+
+	float xMax = al_get_display_width(al_get_current_display());
+	float yMax = al_get_display_height(al_get_current_display());
+
+	if (an->x == -1)
+		an->x = xMax / 2 - an->width / 2;
+	else
+		an->x -= an->width * 1;
+	if (an->y == -1)
+		an->y = yMax / 2 - an->height / 2;
+
+
+	if (an->ID == 'C' || an->ID == 'B') {
+		for (int i = 0; i < an->frames.size(); i++)
+		{
+			al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+			al_draw_bitmap(an->frames[i], an->x, an->y, 0);
+			al_flip_display();
+			al_rest(an->time / 1000.0);
+		}
+	}
+	else if (an->ID == 'F') {
+		bool keep = true;
+		int a = 0;
+		while (keep) {
+			for (int i = 0; i < an->frames.size() && keep; i++) {
+				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_bitmap(an->frames[i], an->x, an->y, ALLEGRO_FLIP_HORIZONTAL);
+				al_flip_display();
+				if (!(a % 4))
+					an->x += an->speed;
+				al_rest(an->time / 1000.0);
+				if (an->x >= xMax)
+					keep = false;
+				a++;
+			}
+		}
+	}
+	else {
+		bool keep = true;
+		while (keep) {
+			for (int i = 0; i < an->frames.size() && keep; i++) {
+				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_bitmap(an->frames[i], an->x, an->y, 0);
+				al_flip_display();
+				an->x += an->speed;
+				al_rest(an->time / 1000.0);
+				if (an->x >= xMax)
+					keep = false;
+			}
+		}
+	}
+
+}
+
 vector<int> UserHandler::getSequence(int sequenceLenght)
 {
 	vector<int> sequence;
@@ -92,7 +149,8 @@ vector<int> UserHandler::getSequence(int sequenceLenght)
 	do {
 		echo();
 		do {
-
+
+
 
 			drawSequenceInterface(sequence);
 			sequence.emplace_back(getNumberString(4, 0, ERROR_SEQUENCE));
@@ -129,9 +187,6 @@ vector<int> UserHandler::getSequence(int sequenceLenght)
 	return sequence;
 }
 
-void UserHandler::draw()
-{
-}
 
 
 

@@ -52,8 +52,10 @@ enum resources
 class AllegroClass
 {
 public:
-	AllegroClass(float displayW_, float displayH_, float fps_);
+	AllegroClass(float displayW_ = 0, float displayH_ = 0, float fps_ = 0);
 	~AllegroClass();
+	ALLEGRO_DISPLAY * createDisplay(float x, float y) { return al_create_display(x, y); }
+	void destroyDisplay(ALLEGRO_DISPLAY * disp) { al_destroy_display(disp); }
 #ifdef DISPLAY_C
 	void updateDisplay();
 #endif

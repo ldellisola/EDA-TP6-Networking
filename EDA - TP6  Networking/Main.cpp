@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 	UserData data;		// Tiene que devolver la posicion de la ip.
 	Packet packet;
 	UserHandler user;
-	AllegroClass allegro();
+	AllegroClass allegro;
 	Parser parser;
 
 	parser.Read(argc, argv);
@@ -56,11 +56,15 @@ int main(int argc, char * argv[])
 			}
 			if (packet.myTurn(data.ipPosition))
 			{
-				user.draw();					
+				ALLEGRO_DISPLAY * disp = allegro.createDisplay(2000, 1000);
+				Animation * an =new Animation(packet.getAnimation());
+				user.draw(an,NULL);					
 				packet.updateCount();
+				allegro.destroyDisplay(disp);
+				delete an;
 			}
 			if (packet.runNextComputer())		// No se si deberia ser de Packet
-			{
+ {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
 				client->sendMessage(packet.getPacketToTransfer());

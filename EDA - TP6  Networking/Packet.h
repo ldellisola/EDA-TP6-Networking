@@ -21,7 +21,7 @@ public:
 	string getPacketToTransfer();		
 	void setRecievedPacket(string a);
 	void updateCount();
-
+	char getAnimation();
 private:
 	bool countIncremented;
 	char animation;

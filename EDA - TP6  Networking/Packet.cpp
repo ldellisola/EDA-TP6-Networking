@@ -1,7 +1,5 @@
 #include "Packet.h"
 
-bool validInput(char * arr);
-
 
 Packet::Packet()
 {
@@ -93,17 +91,7 @@ void Packet::updateCount()
 	countIncremented = true;
 }
 
-
-
-bool validInput(char * arr)
+char Packet::getAnimation()
 {
-	bool retValue = true;
-	for (int i = 0; i < 255 && arr[i] != 0 && retValue; i++)
-	{
-		if (arr[i] == '\n')
-			arr[i] = 0;
-		else if (arr[i] < '0' && arr[i] > '9')		// Hay una funcion que hace esto
-			retValue = false;
-	}
-	return retValue;
+	return this->animation;
 }
