@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <ctype.h>
+#include <algorithm>
 #include <string>
 #define NOTLOADED (-1)
 using namespace std;
@@ -24,6 +25,7 @@ public:
 	char getAnimation();
 	bool amILast(int pos);
 	void clear();
+	bool validateSequence();
 private:
 	bool countIncremented;
 	char animation;

@@ -113,3 +113,15 @@ void Packet::clear()
 	this->countIncremented = false;
 	this->sequence.clear();
 }
+
+bool Packet::validateSequence()
+{
+	vector<int> copy = sequence;
+	sort(copy.begin(), copy.end());
+	bool valid = true;
+
+	for (int i = 1; i < copy.size() && valid; i++) 
+		if (copy[i] != i)
+			valid = false;
+	return valid;
+}

@@ -47,7 +47,13 @@ int main(int argc, char * argv[])
 				stop = !user.askToStart();
 				if (!stop) {
 					packet.setAnimation(user.getAnimation());
-					packet.setSequence(user.getSequence(data.ammountOfIPs));
+					bool validSequence = true;
+					while (validSequence) {
+						packet.setSequence(user.getSequence(data.ammountOfIPs));
+						validSequence = packet.validateSequence();
+					}
+
+					
 					data.imServer = false;
 				}
 				user.killGetter();
@@ -61,7 +67,7 @@ int main(int argc, char * argv[])
 				allegro.destroyDisplay(disp);
 				delete an;
 			}
-			if (!stop && packet.runNextComputer() && !amILast)		// No se si deberia ser de Packet
+			if (!stop && !amILast)		// No se si deberia ser de Packet
  {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
@@ -106,7 +112,7 @@ void tellAllComputersToStop(vector<string>& ips, const char * ip) {
 		if (ip_.compare(ip)) {
 			unique_ptr<Client>client(new Client());
 			client->link(ip_.c_str(), PORT);
-			client->sendMessage(STOP);
+			client->sendMessageTimed( STOP,500);		//Hay que confirmar que funciona
 		}
 	}
 
