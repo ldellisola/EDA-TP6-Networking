@@ -90,22 +90,30 @@ bool UserHandler::askToStart()
 	bool keep = true;
 	bool retValue = true;
 
-	while ((a = getch()) !=ERR && keep) {
+	do {
 		move(3, 0);
 		color_set(1, NULL);
-		if (a == 'y') {
-			keep = false;
-			retValue = true;
+		a = getch();
+		if (a != ERR) {
+
+
+			if (a == 'y') {
+				keep = false;
+				retValue = true;
+			}
+			else if (a == 'n') {
+				keep = false;
+				retValue = false;
+			}
+			else {
+				color_set(2, 0);
+				mvprintw(2, 0, "ERROR: Pleas try again");
+			}
 		}
-		else if (a == 'n') {
-			keep = false;
-			retValue = false;
-		}
-		else {
-			color_set(2, 0);
-			mvprintw(2, 0, "ERROR: Pleas try again");
-		}
-	}
+
+	} while (keep);
+	color_set(1, NULL);
+	
 	return retValue;
 }
 
