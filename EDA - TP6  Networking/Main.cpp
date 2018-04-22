@@ -54,7 +54,7 @@ int main(int argc, char * argv[])
 					}
 
 					
-					data.imServer = false;
+					//data.imServer = false;
 				}
 				user.killGetter();
 			}
@@ -67,7 +67,7 @@ int main(int argc, char * argv[])
 				allegro.destroyDisplay(disp);
 				delete an;
 			}
-			if (!stop && !amILast)		// No se si deberia ser de Packet
+			if (!stop && data.imServer && !amILast)		// No se si deberia ser de Packet
  {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
@@ -79,8 +79,11 @@ int main(int argc, char * argv[])
 					Server s(PORT);
 					s.connect();
 					string a = s.getInfo();
-					if (a.compare(STOP))
+					if (a.compare(STOP)){
+						packet.clear();
 						packet.setRecievedPacket(a);
+						data.imServer = true;
+					}
 					else
 						stop = true;
 				}
