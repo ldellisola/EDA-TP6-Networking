@@ -77,12 +77,12 @@ int main(int argc, char * argv[])
 					Server s(PORT);
 					s.connect();
 					string a = s.getInfo();
-					if (a.compare(STOP)) {
+
+					if (a.compare(STOP)){
 						packet.clear();
 						packet.setRecievedPacket(a);
 						data.imServer = true;
 					}
-
 					else
 						stop = true;
 				}
