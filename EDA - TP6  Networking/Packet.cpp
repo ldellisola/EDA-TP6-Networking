@@ -72,6 +72,7 @@ string Packet::getPacketToTransfer()
 
 void Packet::setRecievedPacket(string a)
 {
+
 	animation = a[0];
 	a.erase(a.begin());
 
@@ -120,8 +121,8 @@ bool Packet::validateSequence()
 	sort(copy.begin(), copy.end());
 	bool valid = true;
 
-	for (int i = 1; i < copy.size() && valid; i++) 
-		if (copy[i] != i)
+	for (int i = 1; i <= copy.size() && valid; i++) 
+		if (copy[i-1] != i)
 			valid = false;
 	return valid;
 }

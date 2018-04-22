@@ -50,11 +50,8 @@ int main(int argc, char * argv[])
 					bool validSequence = true;
 					while (validSequence) {
 						packet.setSequence(user.getSequence(data.ammountOfIPs));
-						validSequence = packet.validateSequence();
+						validSequence = ! packet.validateSequence();
 					}
-
-					
-					data.imServer = false;
 				}
 				user.killGetter();
 			}
@@ -67,11 +64,12 @@ int main(int argc, char * argv[])
 				allegro.destroyDisplay(disp);
 				delete an;
 			}
-			if (!stop && !amILast)		// No se si deberia ser de Packet
+			if (!stop && data.imServer && !amILast)		// No se si deberia ser de Packet
  {
 				unique_ptr<Client> client(new Client());
 				client->link(user.getNextIP(packet.nextComputer(), data.ipList), PORT);
 				client->sendMessage(packet.getPacketToTransfer());
+				data.imServer = false;
 			}
 
 			if (!stop ) {
@@ -79,8 +77,12 @@ int main(int argc, char * argv[])
 					Server s(PORT);
 					s.connect();
 					string a = s.getInfo();
-					if (a.compare(STOP))
+					if (a.compare(STOP)) {
+						packet.clear();
 						packet.setRecievedPacket(a);
+						data.imServer = true;
+					}
+
 					else
 						stop = true;
 				}
@@ -96,8 +98,10 @@ int main(int argc, char * argv[])
 
 	// Esta parte hace que se apaguen las demas computadoras
 
-	if (data.imServer)
+	if (data.imServer) {
+		cout << "Trying to shut down all connected computers. If there any computer was desconnected manually, you'll have to disconnect close any other computer (including this one)" << endl;
 		tellAllComputersToStop(data.ipList, data.ip.c_str());
+	}
 
 	
 
