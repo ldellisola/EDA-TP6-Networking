@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdio>
 #include "Timer.h"
+#include <iostream>
 
 #define SERVER_TIMEOUT "timeout"
 

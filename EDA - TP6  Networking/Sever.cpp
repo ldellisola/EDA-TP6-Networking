@@ -11,6 +11,7 @@ Server::Server(std::string port) {
 
 Server::~Server() {
 
+	std::cout << "Disconnecting.." << std::endl;
 	this->serverAcceptor->close();
 	this->serverSocket->close();
 	delete this->serverAcceptor;
@@ -21,6 +22,7 @@ Server::~Server() {
 
 void Server::connect() {
 
+	std::cout << "Waiting for somebody to connect.. :( " << std::endl;
 	this->serverAcceptor->accept(*(this->serverSocket));
 
 }
@@ -37,6 +39,7 @@ std::string Server::getInfo() {
 
 	buffer[lenght] = 0;
 	std::string retValue = buffer;
+	std::cout << "Recieved a message" << std::endl;
 
 	return retValue;
 }
@@ -68,6 +71,7 @@ std::string Server::getInfoTimed(int ms)
 	if (!timeout) {
 		buffer[lenght] = 0;
 		retValue = buffer;
+		std::cout << "Recieved a message" << std::endl;
 	}
 	else
 		retValue = SERVER_TIMEOUT;
