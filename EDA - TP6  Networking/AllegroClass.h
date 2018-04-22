@@ -12,9 +12,9 @@
 //#define PRIMITIVES_C
 #define COLOR_C
 
-//#define DISPLAY_C
+#define DISPLAY_C
 //#define EVENTS_C
-#define TIMER_C
+//#define TIMER_C
 //#define KEYBOARD_C
 //#define MOUSE_C
 
@@ -54,10 +54,11 @@ class AllegroClass
 public:
 	AllegroClass(float displayW_ = 0, float displayH_ = 0, float fps_ = 0);
 	~AllegroClass();
-	ALLEGRO_DISPLAY * createDisplay(float x, float y) { return al_create_display(x, y); }
-	void destroyDisplay(ALLEGRO_DISPLAY * disp) { al_destroy_display(disp); }
+	
 #ifdef DISPLAY_C
 	void updateDisplay();
+	ALLEGRO_DISPLAY * createDisplay(float x, float y) { return al_create_display(x, y); }
+	void destroyDisplay(ALLEGRO_DISPLAY * disp) { al_destroy_display(disp); }
 #endif
 #ifdef EVENTS_C
 	ALLEGRO_EVENT_QUEUE * getEventQueue();

@@ -21,8 +21,11 @@ AllegroClass::AllegroClass(float displayW_, float displayH_,float fps_)
 		initResources[IMAGE] = true;
 #endif
 #ifdef DISPLAY_C
-		if (display = al_create_display(displayW_, displayH_))
+		if (displayH_ == 0 || displayW_ == 0)
 			initResources[DISPLAY] = true;
+		else
+			if (display = al_create_display(displayW_, displayH_))
+				initResources[DISPLAY] = true;
 #else 
 		initResources[DISPLAY] = true;
 #endif
@@ -109,7 +112,7 @@ AllegroClass::~AllegroClass()
 		al_destroy_timer(timer);
 #endif
 #ifdef DISPLAY_C
-	if (initResources[DISPLAY])
+	if (initResources[DISPLAY] && display)
 		al_destroy_display(display);
 #endif
 
@@ -120,12 +123,14 @@ void AllegroClass::updateDisplay()
 {
 	al_flip_display();
 }
+#endif
+
+#ifdef EVENTS_C
 ALLEGRO_EVENT_QUEUE * AllegroClass::getEventQueue()
 {
 	return this->eventQueue;
 }
 #endif
-
 #ifdef AUDIO_C
 ALLEGRO_SAMPLE * AllegroClass::loadSong(char * file)
 {
