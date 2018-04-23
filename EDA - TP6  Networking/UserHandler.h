@@ -19,12 +19,12 @@ using namespace std;
 #define CONFIRM_SEQUENCE "Press 'enter' to confirm, or esc to select a new sequence"
 #define ERROR_SEQUENCE "Error: incorrect Input. Try agin"
 
-#define CAT_AN "Cat Running-F"
-#define EXP1_AN "Explosion 1-F"
-#define EXP2_AN "Explosion 2-F"
-#define HOMER_AN "homerdance-F"
-#define MARIO_AN "Super Mario Running-F"
-#define SONIC_AN "Sonic Running-F"
+#define CAT_AN "Cat/Cat Running-F"
+#define EXP1_AN "Explosion 1/Explosion 1-F"
+#define EXP2_AN "Explosion 2/Explosion 2-F"
+#define HOMER_AN "Homer/homerdance-F"
+#define MARIO_AN "Mario/Super Mario Running-F"
+#define SONIC_AN "Sonic/Sonic Running-F"
 #define EXT ".png"
 
 typedef struct Animation
@@ -50,7 +50,6 @@ typedef struct Animation
 			ammount = 12;
 			speed = 2;
 			time = 100;
-
 			x = 0;
 			break;
 		case 'B':
@@ -91,8 +90,8 @@ typedef struct Animation
 
 		loadAnimation(fillAnimation(path, EXT, ammount));
 
-		height = al_get_bitmap_height(frames[0]);
-		width = al_get_bitmap_height(frames[0]);
+		height = al_get_bitmap_height(frames[1]);
+		width = al_get_bitmap_height(frames[1]);
 	}
 
 	vector<string> fillAnimation(string path, string ext, int ammount)

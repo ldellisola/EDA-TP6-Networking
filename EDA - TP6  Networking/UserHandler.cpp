@@ -126,7 +126,7 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 	if (an->x == -1)
 		an->x = xMax / 2 - an->width / 2;
 	else
-		an->x -= an->width * 1;
+		an->x -= an->width;
 	if (an->y == -1)
 		an->y = yMax / 2 - an->height / 2;
 
