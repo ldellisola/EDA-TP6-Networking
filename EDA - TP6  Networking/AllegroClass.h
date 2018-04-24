@@ -7,7 +7,7 @@
 // Comment the libraries you are not goiing to use
 
 //#define FONT_C
-//#define AUDIO_C
+#define AUDIO_C
 #define IMAGE_C
 //#define PRIMITIVES_C
 #define COLOR_C
@@ -64,9 +64,9 @@ public:
 	ALLEGRO_EVENT_QUEUE * getEventQueue();
 #endif
 #ifdef AUDIO_C
-	ALLEGRO_SAMPLE * loadSong(char * file);
-	void playSong(ALLEGRO_SAMPLE * song, float volume, float songSpeed, ALLEGRO_PLAYMODE playMode);
-	void unloadSong(ALLEGRO_SAMPLE * song);
+	static ALLEGRO_SAMPLE * loadSong(char * file);
+	static void playSong(ALLEGRO_SAMPLE * song, float volume, float songSpeed, ALLEGRO_PLAYMODE playMode);
+	static void unloadSong(ALLEGRO_SAMPLE * song);
 #endif
 #ifdef FONT_C
 	ALLEGRO_FONT * loadFont(const char * file_, float size);

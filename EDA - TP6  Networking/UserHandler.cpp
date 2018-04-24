@@ -130,11 +130,13 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 	if (an->y == -1)
 		an->y = yMax / 2 - an->height / 2;
 
+	AllegroClass::playSong(an->background_music,1.0,1.0, ALLEGRO_PLAYMODE_LOOP);
 
 	if (an->ID == 'C' || an->ID == 'B') {
 		for (int i = 0; i < an->frames.size(); i++)
 		{
 			al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+			al_draw_bitmap(an->display_background, 0, 0, 0);
 			al_draw_bitmap(an->frames[i], an->x, an->y, 0);
 			al_flip_display();
 			al_rest(an->time / 1000.0);
@@ -146,6 +148,7 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 		while (keep) {
 			for (int i = 0; i < an->frames.size() && keep; i++) {
 				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_bitmap(an->display_background, 0, 0, 0);
 				al_draw_bitmap(an->frames[i], an->x, an->y, ALLEGRO_FLIP_HORIZONTAL);
 				al_flip_display();
 				if (!(a % 4))
@@ -162,6 +165,7 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 		while (keep) {
 			for (int i = 0; i < an->frames.size() && keep; i++) {
 				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_bitmap(an->display_background, 0, 0, 0);
 				al_draw_bitmap(an->frames[i], an->x, an->y, 0);
 				al_flip_display();
 				an->x += an->speed;
@@ -172,6 +176,7 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 		}
 	}
 
+	AllegroClass::unloadSong(an->background_music);
 }
 
 vector<int> UserHandler::getSequence(int sequenceLenght)
@@ -320,115 +325,3 @@ void drawSequenceInterface(vector<int>& sequence) {
 	}
 }
 
-/*
-#include "allegro_startup.h"
-#include "Draw.h"
-
-int main()
-{
-
-ALLEGRO_DISPLAY *mi_display = NULL;
-ALLEGRO_SAMPLE * background_music = NULL;
-unsigned int control = 0;
-ALLEGRO_DISPLAY_MODE   disp_data;
-ALLEGRO_TIMER * Timer;
-ALLEGRO_EVENT_QUEUE * Queue;
-Position_t point;
-
-Allegro allegro;
-
-allegro.allegro_startup();
-allegro.LoadImages();
-Timer = al_create_timer(1 / FPS);
-Queue = al_create_event_queue();
-al_register_event_source(Queue, al_get_timer_event_source(Timer));
-al_start_timer(Timer);
-
-
-al_get_display_mode(al_get_num_display_modes() - 1, &disp_data); //Obtenes las dimensiones del display actual
-al_set_new_display_flags(ALLEGRO_WINDOWED);   //configuro allegro en modo pantalla completa
-mi_display = al_create_display(disp_data.width, disp_data.height);
-
-int o = al_get_bitmap_width(allegro.MarioWalk[1]);
-point.y = (disp_data.height -(al_get_bitmap_height(allegro.MarioWalk[1])));
-point.x = disp_data.width;
-
-//Como lo estaba haciendo en este dummy aca faltaría una función que llame a la imagen correcta según el Input
-//Tambien falta cambiar usar el evento Timer en vez del retardo
-for (int i = 0; (point.x-(al_get_bitmap_width(allegro.MarioWalk[1]))) > -1650; i++) {  //harcodeado -1650 debería ser hasta -650 que es el tamaño del bitmap pero no se porque no anda
-al_clear_to_color(al_map_rgb(255, 255, 255));
-al_draw_bitmap(allegro.MarioWalk[i], point.x-= (MARIO_PIXEL_SPEED*10), point.y, ALLEGRO_FLIP_HORIZONTAL);
-al_flip_display();
-al_rest((FPS));
-if (i == 11)
-i = 1;
-}
-
-return true;
-}
-#pragma once
-
-
-#define CAT_PIXEL_SPEED	2.0
-#define HOMER_PIXEL_SPEED	100.0
-#define MARIO_PIXEL_SPEED	2.0
-#define SONIC_PIXEL_SPEED	19.0
-
-#define CAT_PERIOD	100.0
-#define EXPLOSION_1_PERIOD	120.0
-#define EXPLOSION_2_PERIOD	100.0
-#define HOMER_DANCE_PERIOD	100.0
-#define SUPER_MARIO_PERIOD	40.0
-#define SONIC_PERIOD	60.0
-
-#define ACTUAL_PERIOD SUPER_MARIO_PERIOD
-
-#define DESPLAZAMIENTO 500
-
-#define FPS	((ACTUAL_PERIOD/1000.0))
-
-typedef struct  {
-double x;
-double y;
-}Position_t;
-
-
-using namespace std;
-
-
-class Allegro {
-
-public:
-
-bool allegro_startup(void);
-void allegro_shut_down(void);
-void LoadImages();
-typedef unsigned int uint;
-
-//ALLEGRO_SAMPLE * loadPlayMusic(void);
-//void stopMusic(ALLEGRO_SAMPLE *music);
-
-array<ALLEGRO_BITMAP*, 12> MarioWalk;
-string strMario = "Super Mario/Super Mario Running-F";
-
-array<ALLEGRO_BITMAP*, 8> Explosion1;
-string strExplosion1 = "Explosion 1/Explosion 1-F";
-
-array<ALLEGRO_BITMAP*, 48> Explosion2;
-string strExplosion2 = "Explosion 2/Explosion 2-F";
-
-array<ALLEGRO_BITMAP*, 10> HomerDance;
-string strHomerDance = "Homer Dance/homerdance-F";
-
-array<ALLEGRO_BITMAP*, 10> Sonic;
-string strSonic = "Sonic/Sonic Running-F";
-
-array<ALLEGRO_BITMAP*, 12> Cat;
-string strCat = "Cat Running/Cat Running-F";
-
-string ng = ".png";
-
-
-};
-
-*/
