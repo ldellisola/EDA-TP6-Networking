@@ -117,8 +117,7 @@ bool UserHandler::askToStart()
 	return retValue;
 }
 
-
-void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
+void UserHandler::draw(Animation * an)
 {
 
 	float xMax = al_get_display_width(al_get_current_display());
@@ -136,7 +135,7 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 	if (an->ID == 'C' || an->ID == 'B') {
 		for (int i = 0; i < an->frames.size(); i++)
 		{
-			al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+			//al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
 			al_draw_bitmap(an->display_background, 0, 0, 0);
 			al_draw_bitmap(an->frames[i], an->x, an->y, 0);
 			al_flip_display();
@@ -148,7 +147,8 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 		int a = 0;
 		while (keep) {
 			for (int i = 0; i < an->frames.size() && keep; i++) {
-				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				//al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_scaled_bitmap(an->display_background, 0, 0, al_get_bitmap_width(an->display_background), al_get_bitmap_height(an->display_background), 0, 0, xMax, yMax, 0);
 				al_draw_bitmap(an->display_background, 0, 0, 0);
 				al_draw_bitmap(an->frames[i], an->x, an->y, ALLEGRO_FLIP_HORIZONTAL);
 				al_flip_display();
@@ -165,8 +165,8 @@ void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 		bool keep = true;
 		while (keep) {
 			for (int i = 0; i < an->frames.size() && keep; i++) {
-				al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
-				al_draw_bitmap(an->display_background, 0, 0, 0);
+				//al_clear_to_color(al_color_name("black")); //al_draw_bitmap(background, 0, 0, 0);
+				al_draw_scaled_bitmap(an->display_background, 0, 0, al_get_bitmap_width(an->display_background), al_get_bitmap_height(an->display_background), 0, 0, xMax, yMax, 0);
 				al_draw_bitmap(an->frames[i], an->x, an->y, 0);
 				al_flip_display();
 				an->x += an->speed;

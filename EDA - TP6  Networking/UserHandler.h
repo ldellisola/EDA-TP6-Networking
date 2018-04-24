@@ -55,13 +55,15 @@ typedef struct Animation
 	float y = -1;
 	float width;
 	float height;
+	ALLEGRO_SAMPLE * background_music = NULL;
+	ALLEGRO_BITMAP *display_background = NULL;
 
 	Animation(char an) {
 
 		string path;
 		int ammount;
-		ALLEGRO_SAMPLE * background_music = NULL;
-		ALLEGRO_BITMAP *display_background = NULL;
+		string background;
+		string sound;
 
 		ID = toupper(an);
 
@@ -69,22 +71,24 @@ typedef struct Animation
 		case 'A':
 			path = CAT_AN;
 			display_background = al_load_bitmap(CAT_BG);
-			background_music = AllegroClass::loadSong(CAT_SD);
+			sound = CAT_SD;
 			ammount = 12;
 			speed = 2;
 			time = 100;
 			x = 0;
 			break;
 		case 'B':
-			path = EXP1_AN;			
-			background_music = AllegroClass::loadSong(EXP2_SD);
+			path = EXP1_AN;		// Por defecto, el bitmap nuevo va a ser negro
+			display_background = al_create_bitmap(al_get_display_width(al_get_current_display()),al_get_display_height(al_get_current_display()));
+			sound = EXP1_SD;
 			ammount = 8;
 			speed = 0;
 			time = 120;
 			break;
 		case 'C':
 			path = EXP2_AN;
-			background_music = AllegroClass::loadSong(CAT_SD);
+			display_background = al_create_bitmap(al_get_display_width(al_get_current_display()), al_get_display_height(al_get_current_display()));
+			sound = EXP2_SD;
 			ammount = 48;
 			speed = 0;
 			time = 100;
@@ -93,7 +97,7 @@ typedef struct Animation
 			x = 0;
 			path = HOMER_AN;
 			display_background = al_load_bitmap(HOMER_BG);
-			background_music = AllegroClass::loadSong(HOMER_SD);
+			sound = HOMER_SD;
 			ammount = 10;
 			speed = 100;
 			time = 100;
@@ -102,7 +106,7 @@ typedef struct Animation
 			x = 0;
 			path = MARIO_AN;
 			display_background = al_load_bitmap(MARIO_BG);
-			background_music = AllegroClass::loadSong(MARIO_SD);
+			sound = MARIO_SD;
 			ammount = 12;
 			speed = 2;
 			time = 40;
@@ -111,7 +115,7 @@ typedef struct Animation
 			x = 0;
 			path = SONIC_AN;
 			display_background = al_load_bitmap(SONIC_BG);
-			background_music = AllegroClass::loadSong(SONIC_SD);
+			sound = SONIC_SD;
 			ammount = 10;
 			speed = 70;
 			time = 60;
@@ -120,7 +124,7 @@ typedef struct Animation
 		}
 
 		loadAnimation(fillAnimation(path, EXT, ammount));
-
+		background_music = AllegroClass::loadSong(sound.c_str());
 		height = al_get_bitmap_height(frames[1]);
 		width = al_get_bitmap_height(frames[1]);
 	}
@@ -169,7 +173,7 @@ public:
 	bool askToStart();
 
 	// Allegro Function that draws the animation
-	void draw(Animation * an, ALLEGRO_BITMAP * background);
+	void draw(Animation * an);
 private:
 	WINDOW * display;
 	bool  nodelaySet;

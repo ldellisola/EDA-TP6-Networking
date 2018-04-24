@@ -30,6 +30,8 @@ void Client::sendMessage(string msg)
 		lenght = this->clientSocket->write_some(boost::asio::buffer(msg, msg.size()), error);
 	} while (error);
 
+	std::cout << "Message sent" << std::endl;
+
 
 }
 
