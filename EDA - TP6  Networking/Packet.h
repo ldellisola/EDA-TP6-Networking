@@ -34,3 +34,4 @@ private:
 	vector<int> sequence;
 };
 
+

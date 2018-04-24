@@ -117,6 +117,7 @@ bool UserHandler::askToStart()
 	return retValue;
 }
 
+
 void UserHandler::draw(Animation * an, ALLEGRO_BITMAP * background)
 {
 

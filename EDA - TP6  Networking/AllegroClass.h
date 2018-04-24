@@ -13,6 +13,7 @@
 #define COLOR_C
 
 #define DISPLAY_C
+#define VIDEO_C
 //#define EVENTS_C
 //#define TIMER_C
 //#define KEYBOARD_C
@@ -24,6 +25,10 @@
 
 #ifdef PRIMITIVES_C
 #include <allegro5\allegro_primitives.h>
+#endif
+
+#ifdef VIDEO_C
+#include <allegro5/allegro_video.h>
 #endif
 
 #ifdef COLOR_C
