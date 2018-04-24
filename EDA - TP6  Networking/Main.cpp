@@ -52,6 +52,7 @@ int main(int argc, char * argv[])
 						packet.setSequence(user.getSequence(data.ammountOfIPs));
 						validSequence = ! packet.validateSequence();
 					}
+					//packet.setRecievedPacket(STOP);
 				}
 				user.killGetter();
 			}
