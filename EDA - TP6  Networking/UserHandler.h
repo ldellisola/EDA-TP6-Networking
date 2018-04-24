@@ -55,13 +55,14 @@ typedef struct Animation
 	float y = -1;
 	float width;
 	float height;
+	ALLEGRO_SAMPLE * background_music = NULL;
+	ALLEGRO_BITMAP *display_background = NULL;
 
 	Animation(char an) {
 
 		string path;
 		int ammount;
-		ALLEGRO_SAMPLE * background_music = NULL;
-		ALLEGRO_BITMAP *display_background = NULL;
+
 
 		ID = toupper(an);
 

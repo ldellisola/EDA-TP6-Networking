@@ -48,11 +48,10 @@ int main(int argc, char * argv[])
 				if (!stop) {
 					packet.setAnimation(user.getAnimation());
 					bool validSequence = true;
-					while (validSequence) {
+					while (!validSequence) {
 						packet.setSequence(user.getSequence(data.ammountOfIPs));
-						validSequence = ! packet.validateSequence();
+						validSequence = packet.validateSequence();
 					}
-					//packet.setRecievedPacket(STOP);
 				}
 				user.killGetter();
 			}

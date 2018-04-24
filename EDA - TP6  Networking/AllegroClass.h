@@ -64,7 +64,7 @@ public:
 	ALLEGRO_EVENT_QUEUE * getEventQueue();
 #endif
 #ifdef AUDIO_C
-	static ALLEGRO_SAMPLE * loadSong(char * file);
+	static ALLEGRO_SAMPLE * loadSong( const char * file);
 	static void playSong(ALLEGRO_SAMPLE * song, float volume, float songSpeed, ALLEGRO_PLAYMODE playMode);
 	static void unloadSong(ALLEGRO_SAMPLE * song);
 #endif

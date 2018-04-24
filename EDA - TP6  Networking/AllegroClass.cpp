@@ -132,7 +132,7 @@ ALLEGRO_EVENT_QUEUE * AllegroClass::getEventQueue()
 }
 #endif
 #ifdef AUDIO_C
-ALLEGRO_SAMPLE * AllegroClass::loadSong(char * file)
+ALLEGRO_SAMPLE * AllegroClass::loadSong(const char * file)
 {
 	ALLEGRO_SAMPLE * song = NULL;
 
