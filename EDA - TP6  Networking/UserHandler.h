@@ -38,7 +38,7 @@ using namespace std;
 #define MARIO_BG "Backgrounds/MarioBackground.png"
 #define SONIC_BG "Backgrounds/SonicBackground.jpg"
 //Soundtracks
-#define CAT_SD "Cat/Otrogato.wav"
+#define CAT_SD "Soundtracks/Otrogato.wav"
 #define EXP1_SD "Soundtracks/Explosion1.wav"
 #define EXP2_SD "Soundtracks/Explosion1.wav"
 #define HOMER_SD "Soundtracks/Haveyouever.wav"
