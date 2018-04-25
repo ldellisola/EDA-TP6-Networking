@@ -14,6 +14,11 @@ AllegroClass::AllegroClass(float displayW_, float displayH_,float fps_)
 #ifdef MOUSE_C
 		al_install_mouse();
 #endif
+
+#ifdef VIDEO_C
+		al_init_video_addon();
+#endif
+
 #ifdef IMAGE_C
 		if (al_init_image_addon())
 			initResources[IMAGE] = true;
@@ -102,6 +107,9 @@ AllegroClass::~AllegroClass()
 {
 #ifdef AUDIO_C
 	al_stop_samples();
+#endif
+#ifdef VIDEO_C
+	al_shutdown_video_addon();
 #endif
 #ifdef EVENTS_C
 	if (initResources[EVENTQUEUE])
